@@ -24,20 +24,17 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
           toolchain: stable
+          target: ${{ matrix.target }}
           default: true
           override: true
-    - name: Install cross-compilation tools
-      uses: taiki-e/setup-cross-toolchain-action@v1
-      with:
-          target: ${{ matrix.target }}
+    
     - name: Build
-      run: cargo build --release --verbose
+      run: cargo build --target ${{ matrix.target }} --release --verbose
     - uses: marvinpinto/action-automatic-releases@latest
       with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
           files: |
-              ./target/x86_64-unknown-linux-gnu/release/aisuclean
-              ./target/aarch64-unknown-linux-gnu/release/aisuclean
+              ./target/${{ matrix.target }}/release/aisuclean
 #    - name: Run tests
 #      run: cargo test --verbose
