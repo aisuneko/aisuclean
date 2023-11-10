@@ -4,7 +4,7 @@ Could either be used directly or be integrated into automation (cron, CI pipelin
 
 See it in action:
 
-<img src="https://github.com/aisuneko/aisuclean/assets/22784008/73a33ba4-d955-4bae-9658-e13acb93bd74" width=640>
+<img src="aisuclean_in_action.gif" width=640>
 
 ## Features
 > or "Why not just write a dead simple shell script and get away with it?"
