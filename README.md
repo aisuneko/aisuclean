@@ -2,6 +2,10 @@
 Simple, stupid and portable folder cleaner.
 Could either be used directly or be integrated into automation (cron, CI pipeline...) for a better system maintenance experience.
 
+See it in action:
+
+<img src="https://github.com/aisuneko/aisuclean/assets/22784008/73a33ba4-d955-4bae-9658-e13acb93bd74" width=640>
+
 ## Features
 > or "Why not just write a dead simple shell script and get away with it?"
 - distro-agnostic, works out of the box
@@ -11,7 +15,8 @@ Could either be used directly or be integrated into automation (cron, CI pipelin
 - (shrug) or perhaps I'm just a bit strange :(
 
 ## Installation
-Simply download the prebuilt binary from Releases and use it however you like: run it directly, daemonize it or add it to cron... The choice is yours.
+Simply download the prebuilt binary from [Releases](https://github.com/aisuneko/aisuclean/releases/) and use it however you like: run it directly, daemonize it or add it to cron... The choice is yours.
+
 Currently only binaries for **Linux x86_64 / aarch64** are available, as the tool is primarily designed for Linux distros; tell me if it works on Windows or macOS or more, or if it contains silly bugs...
 
 ## Usage
