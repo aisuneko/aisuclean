@@ -1,6 +1,6 @@
 [package]
 name = "aisuclean"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["aisuneko"]
 description = "Simple, stupid and portable folder cleaner"
@@ -14,8 +14,10 @@ repository = "https://github.com/aisuneko/aisuclean"
 [dependencies]
 clap = {version = "4.3.5", features = ["derive"]}
 indicatif = "0.17.5"
+resolve-path = "0.1.0"
 walkdir = "2.3.3"
 
 [profile.release]
 strip = true 
 lto = true
+codegen-units = 1

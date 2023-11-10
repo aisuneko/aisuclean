@@ -33,7 +33,7 @@ impl AddAssign for DirData {
 }
 #[allow(non_snake_case)]
 pub fn SubDirError() -> AppError {
-    AppError(String::from("is subdirectory"))
+    AppError(String::from("is subdirectory or symlink"))
 }
 #[derive(Debug, PartialEq)]
 pub struct AppError(String);

@@ -1,5 +1,6 @@
 use crate::utils::{make_pb, AppError, DirData, SubDirError};
 use indicatif::{HumanBytes, ProgressBar, ProgressStyle};
+use resolve_path::PathResolveExt;
 use std::{
     ffi::OsString,
     fs::{remove_file, File},
@@ -159,20 +160,27 @@ pub fn open_config(path: &Path) -> Result<Vec<PathBuf>, String> {
         ))),
     }
 }
-pub fn validate(list: Vec<PathBuf>) -> Result<Vec<PathBuf>, String> {
+pub fn validate(list: Vec<PathBuf>, quiet: bool) -> Result<Vec<PathBuf>, String> {
     let mut vec: Vec<PathBuf> = Vec::new();
     for line in list {
-        let cur_path = Path::new(&line);
-        if !(cur_path.try_exists().is_ok() && cur_path.is_dir()) {
-            println!("Path '{}' does not exist, skipping", cur_path.display());
+        let cur_path = &line.try_resolve().unwrap();
+        let line = cur_path.to_path_buf();
+        if let Ok(true) = cur_path.try_exists() {
+        } else {
+            if !quiet {
+                println!("Path '{}' does not exist, skipping", cur_path.display());
+            }
             continue;
         }
+        let mut flag: bool = true;
         for i in &vec[..] {
             if i == &line {
-                return Err(String::from(format!(
-                    "Duplicate entry in config: '{}'",
+                println!(
+                    "Path '{}' is duplicated in config, only one kept",
                     &line.display()
-                )));
+                );
+                flag = false;
+                break;
             } else if i.starts_with(&line) || (&line).starts_with(i) {
                 return Err(String::from(format!(
                     "Nested directories in config: '{}' and '{}'",
@@ -181,7 +189,9 @@ pub fn validate(list: Vec<PathBuf>) -> Result<Vec<PathBuf>, String> {
                 )));
             }
         }
-        vec.push(line);
+        if flag {
+            vec.push(line);
+        }
     }
     Ok(vec)
 }

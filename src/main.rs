@@ -38,9 +38,9 @@ fn main() {
     } else if let Some(vec) = args.path {
         config = vec;
     }
-    let validated_list = validate(config).map_err(eq).unwrap();
+    let validated_list = validate(config, args.quiet).map_err(eq).unwrap();
     if !args.quiet {
-        println!("{} folders detected in config", validated_list.len());
+        println!("{} valid entries detected in config", validated_list.len());
     }
     if args.scan {
         scan(&validated_list, args.quiet);
